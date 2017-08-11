@@ -21,8 +21,8 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 		date_default_timezone_set("UTC");	
-		$this->load->library('curl');	
-		echo base_url();
+		//$this->load->library('curl');	
+		//echo base_url();
 		/*
 		// The current time. Needed to create the Timestamp parameter below.
 		$now = new DateTime();
@@ -91,7 +91,14 @@ class Welcome extends CI_Controller {
 		      echo $data_ar['ErrorResponse']['Head']['ErrorMessage'];  
 		}
 		*/
-		
-		$this->load->view('welcome_message');
+		$data['header'] = 'includes/header';
+        $data['footer'] = 'includes/footer';
+        $data['side_menu'] = 'includes/side_menu';
+        $data['main_content'] = 'home';
+        /*$data['refrence_no'] = '4555';
+        $data['main_content'] = 'thanks';*/
+        $this->load->view('includes/template', $data);
+
+		//$this->load->view('welcome_message');
 	}
 }

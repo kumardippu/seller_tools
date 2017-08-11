@@ -22,18 +22,18 @@ class Home extends CI_Controller {
        $data_ar = json_decode($order_data,1);
        if(isset($data_ar['SuccessResponse'])){
             $data['error'] =  FALSE;
-
+            $orders = array();
             $totalOrders = $data_ar['SuccessResponse']['Head']['TotalCount'];
            // echo $totalOrders;
             //print_r($data_ar['SuccessResponse']['Body']);exit;
             //print_r($data_ar['SuccessResponse']['Body']['Orders']);exit;
-            $orders = $data_ar['SuccessResponse']['Body']['Orders'];
+            //$orders = $data_ar['SuccessResponse']['Body']['Orders'];
             if(count($orders)>0){
                 foreach ($orders as $val) {
                     //print_r($val['OrderId']);
                     $order_item_data = $this->api_model->getOrderItems($val['OrderId']);
-                    print_r($order_item_data);
-                    echo "<br>";
+                    //print_r($order_item_data);
+                    //echo "<br>";
                 }
             }
 
@@ -45,5 +45,15 @@ class Home extends CI_Controller {
         $data['orderCount'] = $totalOrders;
 
         //print_r($data);
+
+        $data['header'] = 'includes/header';
+        $data['footer'] = 'includes/footer';
+        $data['side_menu'] = 'includes/side_menu';
+        $data['main_content'] = 'dashboard';
+        /*$data['refrence_no'] = '4555';
+        $data['main_content'] = 'thanks';*/
+        $this->load->view('includes/template', $data);
+
+       // $this->load->view('home',$data);
 	}
 }

@@ -58,6 +58,7 @@ class Login extends CI_Controller {
     				'user_name' => $user_name,
     				'is_logged_in' => true,
                     'userid'       => $is_valid,
+                    'name'         => $userdata['userdata']->name, 
                     'api_key'      => $userdata['userdata']->api_key,
                     'seller_id'    => $userdata['userdata']->seller_id,
                     'access'       => $userdata['userdata']->user_type
@@ -70,6 +71,7 @@ class Login extends CI_Controller {
                     'user_name'    => $user_name,
                     'is_logged_in' => true,
                     'userid'       => $is_valid,
+                    'name'         => $userdata['userdata']->name,
                     'api_key'      => $userdata['userdata']->api_key,
                     'seller_id'    => $userdata['userdata']->seller_id,
                     'access'       => $userdata['userdata']->user_type
@@ -157,7 +159,7 @@ class Login extends CI_Controller {
     */		
 	function logout(){
 		$this->session->sess_destroy();
-		redirect('admin');
+		redirect('login');
 	}
 
     function isEmailExist($str){

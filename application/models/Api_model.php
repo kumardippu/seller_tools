@@ -25,9 +25,9 @@ class Api_model extends CI_Model {
 
             // The current time formatted as ISO8601
             'Timestamp' => $now->format(DateTime::ISO8601),
-            'Status' => $status // Possible values are pending, canceled, ready_to_ship, delivered, returned, shipped and failed.
+            'Status' => $status, // Possible values are pending, canceled, ready_to_ship, delivered, returned, shipped and failed.
             //'CreatedAfter' => $createdAfter
-
+            'Limit' => 100
         );
 
         // Sort parameters by name.

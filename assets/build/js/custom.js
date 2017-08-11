@@ -788,10 +788,10 @@ if (typeof NProgress != 'undefined') {
 		
 		
 		if ($('#gauge-text2').length){
-			
-			chart_gauge_02.maxValue = 9000;
+			meter_value = $('#meter_value').val();
+			chart_gauge_02.maxValue = $('#meter_limit').val();//9000;
 			chart_gauge_02.animationSpeed = 32;
-			chart_gauge_02.set(2400);
+			chart_gauge_02.set(parseInt(meter_value));
 			chart_gauge_02.setTextField(document.getElementById("gauge-text2"));
 		
 		}

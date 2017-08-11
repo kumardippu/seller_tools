@@ -23,7 +23,7 @@ date_default_timezone_set("Asia/Kuala_Lumpur");
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost:8080/rts/';
+$config['base_url'] = 'http://localhost:8080/seller_tools/';
 
 /*
 |--------------------------------------------------------------------------
