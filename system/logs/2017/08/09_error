@@ -1,0 +1,13 @@
+2017-08-09 17:40:54||Test|Testing error_log sdfasdf
+2017-08-09 17:52:25|Login Error|[]
+2017-08-09 17:52:36|Login Error|{"user_name":"asfasf@sdfsd.sdf","password":"sdfasfa","login":"Log in"}
+2017-08-09 17:57:16|Login Error|{"user_name":"asdfasdf@wefs","password":"asfdasdf","login":"Log in"}
+2017-08-09 17:57:43|Login Error|{"user_name":"dippu.kumar@lazada.com.my","password":"123456","login":"Log in"}
+2017-08-09 17:58:36|Login Error|{"user_name":"dippu.kumar@lazada.com.my","password":"123456","login":"Log in"}
+2017-08-09 17:58:42|Login|{"user_name":"dippu.kumar@lazada.com.my","is_logged_in":true,"userid":"1","api_key":"3w-1-953aa7rDtARldex1wfsKZW_bsizqKMFzv-kwcNAZruagDfIAhtM","seller_id":null,"access":"3"}
+2017-08-09 18:00:19|Login|"1"
+2017-08-09 18:02:00|Login|{"userid":"1"}
+2017-08-09 18:06:08|Registration Validation Error|{"name":"asdfasdf","email":"sdfsdaf@sdf","seller_id":"asdfdasf","api_key":"asfasfd","password":"123456","confirm_password":"123456","register":"Submit"}
+2017-08-09 18:08:03|Registration Validation Error|{"name":"asfdasf","email":"sdfsdaf@df","seller_id":"asdfasf","api_key":"sfsdfsdf","password":"123456","confirm_password":"123456","register":"Submit"}<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>The Email field must contain a valid email address.</strong></div>
+<div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><strong>Seller Code already exist</strong></div>
+
