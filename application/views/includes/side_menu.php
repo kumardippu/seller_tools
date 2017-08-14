@@ -31,7 +31,7 @@
                  
                   <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Pending Orders</a></li>
+                      <li><a href="<?php echo base_url('order');?>/pending">Pending Orders</a></li>
                       <li><a href="chartjs2.html">RTS Action</a></li>
                     </ul>
                   </li>

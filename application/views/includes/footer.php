@@ -2,8 +2,7 @@
           
           #footer {
     position: fixed;
-    height: 50px;
-
+    height: 25px;
     bottom: 0px;
     left: 0px;
     right: 0px;
