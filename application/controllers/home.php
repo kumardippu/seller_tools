@@ -28,7 +28,7 @@ class Home extends CI_Controller {
            // echo $totalOrders;
             //print_r($data_ar['SuccessResponse']['Body']);exit;
             //print_r($data_ar['SuccessResponse']['Body']['Orders']);exit;
-            $orders = $data_ar['SuccessResponse']['Body']['Orders'];
+           // $orders = $data_ar['SuccessResponse']['Body']['Orders'];
             if(count($orders)>0){
                 foreach ($orders as $val) {
                     //print_r($val['OrderId']);
