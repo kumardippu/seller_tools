@@ -99,6 +99,53 @@ class Order extends CI_Controller {
        // $this->load->view('home',$data);
 	}
 
+
+    function rts(){
+        if ($this->input->server('REQUEST_METHOD') === 'POST'){ 
+            $tn = $this->input->post('tn');
+            $tn_ar = explode(',',$tn);
+            if(count($tn_ar>0)){
+                $track_no = '';
+                foreach ($tn_ar as $val) {
+                    if($val!=''){
+                        $track_no = $val;    
+                        $rts_data = $this->order_model->getRTSData($val);
+                        //print_r($rts_data);exit;
+                        if(count($rts_data)>0){
+                            $itemids = array();
+                            foreach ($rts_data as $val) {
+                                $itemids[]   =  $val['item_id'];
+                            }
+                            $api_data['delivery_type'] = $rts_data[0]['delivery_type'];
+                            $api_data['shipping_provider'] = $rts_data[0]['shipping_provider'];
+                            $api_data['tracking_no'] = $track_no;
+                            $api_data['itemids'] = implode(',',$itemids);
+
+                            $rts_api_return = $this->api_model->rtsAction($api_data);                        
+                            print_r($rts_api_return);
+                            echo "<br>";  
+                        }else{  
+                            //Blank RTS Data    
+                        }
+                        
+                    }else{
+                        //Blank TN
+                    }
+                     
+                }exit;
+              }else{
+                //Blank form post
+              }
+            }
+        $data['header'] = 'includes/header';
+        $data['footer'] = 'includes/footer';
+        $data['side_menu'] = 'includes/side_menu';
+        $data['main_content'] = 'rts';
+        /*$data['refrence_no'] = '4555';
+        $data['main_content'] = 'thanks';*/
+        $this->load->view('includes/template', $data);
+    }
+
     /**
       * This is for the API data processing
     **/

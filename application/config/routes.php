@@ -53,6 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['home'] 					= 'Welcome/index';
 $route['dashboard']				= 'home/index';
 $route['order/(:any)']			= 'order/index/$1';
+$route['rts']					= 'order/rts';
 
 $route['login'] 				= 'login/index';
 $route['register'] 				= 'login/register';
