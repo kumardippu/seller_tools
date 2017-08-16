@@ -31,10 +31,13 @@ class Order_model extends CI_Model {
     }
 
     function getRTSData($tn){
-        $this->db->select('item_id,delivery_type,shipping_provider');
+        $this->db->select('order_no,order_id,item_id,delivery_type,shipping_provider');
         $this->db->where('tracking_no', $tn);
         $query = $this->db->get('tbl_order_items');
         return $query->result_array();
     }
-          
+     function storeRTSData($data){
+            $insert = $this->db->insert('tbl_rts_data', $data);
+            return $this->db->insert_id();
+    }         
 }

@@ -8,12 +8,13 @@
  <!-- page content -->
 <div class="right_col" role="main">
   <div class="">
-  <div class="row top_tiles" style="margin: 10px 0;">
-<div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="row top_tiles" style="margin: 10px 0;min-height: 600px;">
+<div class="col-md-12 col-sm-12 col-xs-12" style="">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Pending Orders<small></small></h2>
+            <h2>Pending Orders<small>Liable for RTS only</small></h2>
             <ul class="nav navbar-right panel_toolbox">
+              
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
               </li>
               <li class="dropdown">
@@ -28,6 +29,9 @@
               <li><a class="close-link"><i class="fa fa-close"></i></a>
               </li>
             </ul>
+
+            <a href="<?php echo base_url('rts');?>" class="btn btn-success navbar-right">RTS Action</a>
+
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
