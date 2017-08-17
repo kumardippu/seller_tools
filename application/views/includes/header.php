@@ -23,6 +23,7 @@
     
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url('assets/build/css/custom.min.css')?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/build/css/new_customs.css')?>" rel="stylesheet">
   </head>
 
    <body class="nav-md">

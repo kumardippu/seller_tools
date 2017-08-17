@@ -29,8 +29,9 @@
               <li><a class="close-link"><i class="fa fa-close"></i></a>
               </li>
             </ul>
-
+            
             <a href="<?php echo base_url('rts');?>" class="btn btn-success navbar-right">RTS Action</a>
+            <a href="<?php echo base_url('order/pending');?>" class="btn btn-success navbar-right mr-10"><i class="fa fa-refresh mr-5"></i>Sync Data</a>
 
             <div class="clearfix"></div>
           </div>

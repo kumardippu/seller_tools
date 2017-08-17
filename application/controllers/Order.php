@@ -105,15 +105,19 @@ class Order extends CI_Controller {
         $userid = $this->session->userdata('userid');
         $result_data = array(); $i =0;
         if ($this->input->server('REQUEST_METHOD') === 'POST'){
+
             $data['show_result']  = TRUE;
             $tn = $this->input->post('tn');
-            $tn_ar = explode(',',$tn);
+            $tn_ar = explode(PHP_EOL,$tn);
+           // $tn_ar = explode(',',$tn);
             if(count($tn_ar>0)){
                 $track_no = ''; 
                 foreach ($tn_ar as $val) {
                     if($val!=''){
                         $track_no = trim($val);
+                        //print_r($);exit;
                         $result_data[$i]['tn'] = $track_no;
+                        
                         $rts_data = $this->order_model->getRTSData($val);
 
                         //print_r($rts_data);exit;
@@ -164,7 +168,7 @@ class Order extends CI_Controller {
                         }else{ // If balnk RTS check
                             //Blank RTS Data  
                              $result_data[$i]['order_on'] = '-';
-                             $result_data[$i]['action'] = 'Error | Tracking number not exist in Seller Center.';
+                             $result_data[$i]['action'] = 'Error | Tracking number does not exist in Seller Center.';
                              $this->log_model->writeEventLog(json_encode($rts_data)."| user_id:".$userid,'No Data against TN '.$track_no.'| order_model-getRTSData()');
 
                         }
