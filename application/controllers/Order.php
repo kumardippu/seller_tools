@@ -150,12 +150,14 @@ class Order extends CI_Controller {
                                     $save['PurchaseOrderId']    = $orderItems[0]['PurchaseOrderId'];
                                     $save['PurchaseOrderNumber']= $orderItems[0]['PurchaseOrderNumber'];
                                     
-                                    if($this->order_model->storeRTSData($save)){
-                                        //Data has been inserted
-                                        $this->log_model->writeEventLog(json_encode($save),'RTS Data Inserted');
-                                    }else{
-                                        //MySQL error log
-                                        $this->log_model->writeEventLog(json_encode($save)."| MySQL Error |".$this->db->_error_message(),'RTS Data Not Inserted | MySQL Problem');
+                                    if(!$this->isRTSTNExist($save['tracking_no']) ){
+                                        if($this->order_model->storeRTSData($save)){
+                                            //Data has been inserted
+                                            $this->log_model->writeEventLog(json_encode($save),'RTS Data Inserted');
+                                        }else{
+                                            //MySQL error log
+                                            $this->log_model->writeEventLog(json_encode($save)."| MySQL Error |".$this->db->_error_message(),'RTS Data Not Inserted | MySQL Problem');
+                                        }
                                     }
                                     $result_data[$i]['action'] = 'Success';
                             }else{
@@ -206,6 +208,52 @@ class Order extends CI_Controller {
         $this->load->view('includes/template', $data);
     }
 
+
+    function manifestDoc(){
+       // Here should be data delete code
+       $userid = $this->session->userdata('userid');
+       //GetOrders API Call
+       $docData['itemids'] = '114156611,115376329,115376330';
+       $doc_data = $this->api_model->manifestDocs($docData);
+       $docs_ar =  $this->apiDataProcessor($doc_data,FALSE);
+        //print_r($docs_ar);exit;
+        $file_data  = '';
+        if(isset($docs_ar['error']) && $docs_ar['error']==FALSE){
+            $docs       = $docs_ar['data']['Document'];
+            $file_data  = base64_decode($docs['File']);
+        }else{
+            //API Error Log
+            $this->log_model->writeEventLog(json_encode($docs_ar)." |API Data|".json_encode($api_data)." | user_id:".$userid,'API issue | GetDocuments');
+        }
+
+        $data['fileData'] = $file_data;
+
+        /*$data['header'] = 'includes/header';
+        $data['footer'] = 'includes/footer';
+        $data['side_menu'] = 'includes/side_menu';
+        $data['main_content'] = 'manifest';
+        $this->load->view('includes/template', $data);*/
+        $this->load->view('manifest_print', $data);
+
+    }
+
+    function manifest(){
+       // Here should be data delete code
+       $userid = $this->session->userdata('userid');
+       //GetOrders API Call    
+       $manifest_list = $this->order_model->getManfestList($userid);
+
+       //print_r($manifest_list);exit;
+       $data['manifest'] = $manifest_list;
+       /*print_r($data);exit;*/
+       $data['header'] = 'includes/header';
+       $data['footer'] = 'includes/footer';
+       $data['side_menu'] = 'includes/side_menu';
+       $data['main_content'] = 'manifest';
+       /*$data['refrence_no'] = '4555';
+       $data['main_content'] = 'thanks';*/
+       $this->load->view('includes/template', $data);
+    }
     /**
       * This is for the API data processing
     **/
@@ -242,6 +290,15 @@ class Order extends CI_Controller {
                 break;
             default:
               return $delivery_type;
+        }
+    }
+    
+    function isRTSTNExist($str){
+        $count = $this->order_model->isRTSTNExist($str);//$this->auth->check_email($str, $this->admin_id);
+        if ($count){
+            return TRUE;
+        }else{
+            return FALSE;
         }
     }
 

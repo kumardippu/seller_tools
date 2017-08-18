@@ -36,8 +36,27 @@ class Order_model extends CI_Model {
         $query = $this->db->get('tbl_order_items');
         return $query->result_array();
     }
+
+    function getManfestList($uid){
+        $this->db->select('order_no,itemids,tracking_no');
+        $this->db->where('user_id', $uid);
+        $this->db->order_by('id','desc');
+        $query = $this->db->get('tbl_rts_data');
+        return $query->result_array();
+    }
+
      function storeRTSData($data){
             $insert = $this->db->insert('tbl_rts_data', $data);
             return $this->db->insert_id();
-    }         
+    } 
+
+    function isRTSTNExist($str){
+        $this->db->select('id');
+        $this->db->from('tbl_rts_data');
+        $this->db->where('tracking_no',$str);
+        $count = $this->db->count_all_results();
+        if($count>0){
+          return true;
+        }else{return false;}
+    }       
 }
