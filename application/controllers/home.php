@@ -6,47 +6,40 @@ class Home extends CI_Controller {
             * Check if the user is logged in, if he's not, 
             * send him to the login page
         */  
+        ini_set('max_execution_time',6000); //300 seconds = 5 minutes
         if(!$this->session->userdata('is_logged_in')){
             redirect('login');
         }
         $this->load->library('curl');   
-        $this->load->model(array('log_model','api_model'));
+        $this->load->model(array('log_model','api_model','order_model'));
     }
    
+   function array_except($array, $keys) {
+  return array_diff_key($array, array_flip((array) $keys));   
+} 
 	function index(){
-	   //echo "Welcome to the Home";
-       //print_r($_SESSION);
-        //$data = $this->api_model->getOrderItems('108873442');
-       $order_data = $this->api_model->getOrders('pending');
+       $userid = $this->session->userdata('userid');
+       $today = date('Y-m-d');
 
-       $totalOrders = 0;
-       $data_ar = json_decode($order_data,1);
-       if(isset($data_ar['SuccessResponse'])){
-            $data['error'] =  FALSE;
-            $orders = array();
-            $totalOrders = $data_ar['SuccessResponse']['Head']['TotalCount'];
-           // echo $totalOrders;
-            //print_r($data_ar['SuccessResponse']['Body']);exit;
-            //print_r($data_ar['SuccessResponse']['Body']['Orders']);exit;
-           // $orders = $data_ar['SuccessResponse']['Body']['Orders'];
-            if(count($orders)>0){
-                foreach ($orders as $val) {
-                    //print_r($val['OrderId']);
-                    $order_item_data = $this->api_model->getOrderItems($val['OrderId']);
-                    print_r($order_item_data);
-                    //echo "<br>";
-                }exit;
-            }
+       $total_rts_count      = $this->order_model->countRTSData();
+       $total_user_rts_count = $this->order_model->countRTSData($userid);
+       
+       $total_rts_count_today = $this->order_model->countRTSDataByDate('',$today,$today);
+       $total_user_rts_count_today = $this->order_model->countRTSDataByDate($userid,$today,$today);
+    
+       $data['total_rts_count']             = $total_rts_count;
+       $data['total_user_rts_count']        = $total_user_rts_count;
+       $data['total_rts_count_today']       = $total_rts_count_today;
+       $data['total_user_rts_count_today']  = $total_user_rts_count_today;
 
-        }else{
-            $data['error'] =  TRUE;
-            $data['error_msg'] = $data_ar['ErrorResponse']['Head']['ErrorMessage'];  
+        $graph_data = $this->order_model->getRTSDataForMonth();
+        
+        $data_ar = array();
+        foreach ($graph_data as $key => $value) {
+          $graph_data = array_values($value);
+          $data_ar[] = $graph_data;
         }
-
-        $data['orderCount'] = $totalOrders;
-
-        //print_r($data);
-
+        $data['graph']  = $data_ar;
         $data['header'] = 'includes/header';
         $data['footer'] = 'includes/footer';
         $data['side_menu'] = 'includes/side_menu';

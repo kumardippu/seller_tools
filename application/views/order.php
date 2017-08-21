@@ -38,7 +38,7 @@
           <div class="x_content">
             <?php //print_r($orders); exit;?>
             <p class="text-muted font-13 m-b-30">
-              Now you can get only 100 order at once in this list
+              <!--Now you can get only 100 order at once in this list-->
             </p>
               
             <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">

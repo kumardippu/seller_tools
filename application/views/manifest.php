@@ -1,5 +1,5 @@
  <!-- iCheck -->
-    <link href="<?php echo base_url('assets/vendors/iCheck/skins/flat/green.css')?>" rel="stylesheet">
+    <link href="<?php //echo base_url('assets/vendors/iCheck/skins/flat/green.css')?>" rel="stylesheet">
 <!-- Datatables -->
 <link href="<?php echo base_url('assets/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')?>" rel="stylesheet">
 <link href="<?php //echo base_url('assets/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css')?>" rel="stylesheet">
@@ -15,6 +15,7 @@
         <div class="x_panel">
           <div class="x_title">
             <h2>RTS Orders<small>Print Carrier Manifest frm here</small></h2>
+
             <ul class="nav navbar-right panel_toolbox">
               
               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -32,6 +33,8 @@
               </li>
             </ul>
 
+            <a href="#" class="btn btn-success navbar-right mr-10" id="print_manifest"><i class="fa fa-print mr-5" ></i>Print Manifest</a>
+
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
@@ -43,7 +46,7 @@
             <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action" cellspacing="0" width="100%">
               <thead>
                 <tr>
-                 <th><input type="checkbox" name="check-all" id="check-all" value="1" class="flat"></th>
+                 <th><input type="checkbox" name="check-all" id="check-all-dt" value="1" ></th>
                   <th>Order No</th>
                   <th>Item ID</th>
                   <th>Tracking No</th>
@@ -56,7 +59,7 @@
                 <?php 
                     foreach ($manifest as $val) {
                         echo "<tr>";
-                        echo '<th><input type="checkbox" id="check-allss" class="flat"></th>';
+                        echo '<th><input type="checkbox" name="item_ids[]" value="'.$val['itemids'].'" ></th>';
                         echo "<td>".$val['order_no']."</td>";
                         echo "<td>".$val['itemids']."</td>";
                 
@@ -80,7 +83,7 @@
 
 </div>
     <!-- iCheck -->
-<script src="<?php echo base_url('assets/vendors/iCheck/icheck.min.js')?>"></script>
+<script src="<?php //echo base_url('assets/vendors/iCheck/icheck.min.js')?>"></script>
 <!-- Datatables -->
 <script src="<?php echo base_url('assets/vendors/datatables.net/js/jquery.dataTables.min.js')?>"></script>
 <script src="<?php echo base_url('assets/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')?>"></script>
@@ -92,29 +95,44 @@ $(document).ready(function() {
   datatable.dataTable({
     'order': [[ 1, 'asc' ]],
     'columnDefs': [
-    { orderable: false, targets: [0] }
+    { orderable: false, targets: [1] }
     ]
   });
-  datatable.on('draw.dt', function() {
-    $('checkbox input').iCheck({
-    checkboxClass: 'icheckbox_flat-green'
-    });
-  });
-    
 
+  $('#print_manifest').on('click',function(){
+     var values = new Array();
+     var all_items = '';
+      $.each($("input[name='item_ids[]']:checked"), function() {
+        values.push($(this).val());
+
+        // or you can do something to the actual checked checkboxes by working directly with  'this'
+        // something like $(this).hide() (only something useful, probably) :P
+      });
+      all_items = values.join(',')
+      //console.log(all_items);
+      if(all_items!=''){
+        window.open('http://localhost:8080/seller_tools/manifest-print/'+encodeURIComponent(btoa(all_items)), '_blank'); 
+      }else{
+        alert('Please select at least one order');
+      }
+      
+
+
+  });
+
+   // Handle click on "Select all" control
+  $('#check-all-dt').on('change', function(){
+    //Get all rows with search applied
+    var rows = datatable.api().rows({ 'search': 'applied' }).nodes();
+    // Check/uncheck checkboxes for all rows in the table
+    $('input[type="checkbox"]', rows).prop('checked', this.checked);
+    
+  });
 
 
   
 });
 
-   // Handle click on "Select all" control
-  $('#check-all').on('click', function(){
-    alert(9);
-   /* // Get all rows with search applied
-    var rows = datatable.rows({ 'search': 'applied' }).nodes();
-    // Check/uncheck checkboxes for all rows in the table
-    $('input[type="checkbox"]', rows).prop('checked', this.checked);
-    */
-  });
+
 
 </script>

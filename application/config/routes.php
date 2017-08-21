@@ -55,6 +55,7 @@ $route['dashboard']				= 'home/index';
 $route['order/(:any)']			= 'order/index/$1';
 $route['rts']					= 'order/rts';
 $route['manifest-print']		= 'order/manifestDoc';
+$route['manifest-print/(:any)']	= 'order/manifestDoc/$1';
 $route['manifest']				= 'order/manifest';
 
 $route['login'] 				= 'login/index';

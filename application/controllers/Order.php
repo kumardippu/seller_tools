@@ -209,11 +209,12 @@ class Order extends CI_Controller {
     }
 
 
-    function manifestDoc(){
-       // Here should be data delete code
+    function manifestDoc($itemids=''){
        $userid = $this->session->userdata('userid');
-       //GetOrders API Call
-       $docData['itemids'] = '114156611,115376329,115376330';
+       
+       $itemids = base64_decode(rawurldecode($itemids));
+
+       $docData['itemids'] = $itemids;
        $doc_data = $this->api_model->manifestDocs($docData);
        $docs_ar =  $this->apiDataProcessor($doc_data,FALSE);
         //print_r($docs_ar);exit;
@@ -221,9 +222,13 @@ class Order extends CI_Controller {
         if(isset($docs_ar['error']) && $docs_ar['error']==FALSE){
             $docs       = $docs_ar['data']['Document'];
             $file_data  = base64_decode($docs['File']);
+            $data['error']      = FALSE;
+            $data['error_msg']  = ''; 
         }else{
             //API Error Log
-            $this->log_model->writeEventLog(json_encode($docs_ar)." |API Data|".json_encode($api_data)." | user_id:".$userid,'API issue | GetDocuments');
+            $this->log_model->writeEventLog(json_encode($docs_ar)." |API Data|".json_encode($docs_ar)." | user_id:".$userid,'API issue | GetDocuments');
+            $data['error']      = TRUE;
+            $data['error_msg']  = $docs_ar['error_msg'];    
         }
 
         $data['fileData'] = $file_data;
@@ -238,7 +243,10 @@ class Order extends CI_Controller {
     }
 
     function manifest(){
+        //print_r(base64_decode('MTE1MzI3OTIwLDExNTM3MTMzMiwxMTUzODY0MjksMTE0MTU2NjEzLDExNTM3MTA1NSwxMTUzNzEwNTQsMTE1Mzc2MzI5LDExNTM3NjMzMA=='));
        // Here should be data delete code
+
+
        $userid = $this->session->userdata('userid');
        //GetOrders API Call    
        $manifest_list = $this->order_model->getManfestList($userid);

@@ -12,6 +12,7 @@
 
      <div class="x_content">
       <h2>RTS(Ready To Ship) Form<small></small></h2>
+      <a href="<?php echo base_url('order/pending');?>" class="btn btn-success navbar-right mr-10"><i class="fa fa-refresh mr-5"></i>Sync Data</a>
       <?php 
            $form_attributes = array('class' => 'form-horizontal form-label-left', 'id' => 'rts_froms','name' => 'rts_form');
           echo form_open('rts',$form_attributes);

@@ -35,7 +35,17 @@
                       <!--<li><a href="chartjs2.html">RTS Action</a></li>-->
                     </ul>
                   </li>
+
+               
+
                 </ul>
+
+                <div class="menu_section">
+                  <h3>Documents</h3>
+                    <ul class="nav side-menu">
+                       <li><a href="<?php echo base_url('manifest');?>"><i class="fa fa-print"></i>Carrier Manifest</a></li> 
+                    </ul>
+                  </div>
               </div>
              <!-- <div class="menu_section">
                 <h3>Live On</h3>
