@@ -2,7 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
-
+	public function __construct(){
+	    parent::__construct();
+        /**
+            * Check if the user is logged in, if he's not, 
+            * send him to the login page
+        */  
+        if(!$this->session->userdata('is_logged_in')){
+            redirect('login');
+        }
+	}
 	/**
 	 * Index Page for this controller.
 	 *
