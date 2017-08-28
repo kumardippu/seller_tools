@@ -308,6 +308,8 @@
       colors: ["#26B99A"],  xaxis: {
                         ticks: 30,
                         tickDecimals: 0
+                    },yaxis: {
+                        tickDecimals: 0
                     },
       grid: {
         borderWidth: {

@@ -2,9 +2,10 @@
 class Order_model extends CI_Model {
     
     function storeOrderItems($data){
-            $insert = $this->db->insert('tbl_order_items', $data);
-            return $this->db->insert_id();
+          $insert = $this->db->insert('tbl_order_items', $data);
+          return $this->db->insert_id();
     }
+
 
     function getOrderItemsByUser($uid,$status=1){
         $this->db->where('user_id', $uid);
@@ -12,6 +13,16 @@ class Order_model extends CI_Model {
         $query = $this->db->get('tbl_order_items');
         return $query->result_array();
     }
+
+    function getManifestData($order_no){
+      $this->db->select('order_no,itemids,shipping_provider,tracking_no');
+      $this->db->where_in('order_no',$order_no);
+      //$this->db->group_by('shipping_provider'); 
+      $this->db->order_by('shipping_provider'); 
+      $query = $this->db->get('tbl_rts_data');
+      return $query->result_array();
+    }
+
     function deleteOrderItems($uid){
       // I need ot add it in cron
       //DELETE t1 FROM tbl_order_items_log t1,tbl_order_items_log t2 WHERE t1.item_id=t2.item_id AND t2.id>t1.id

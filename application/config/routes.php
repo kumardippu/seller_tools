@@ -56,7 +56,10 @@ $route['order/(:any)']			= 'order/index/$1';
 $route['rts']					= 'order/rts';
 $route['manifest-print']		= 'order/manifestDoc';
 $route['manifest-print/(:any)']	= 'order/manifestDoc/$1';
+$route['manifest-print-all']	= 'order/manifestDocAll';
+$route['manifest-print-all/(:any)']	= 'order/manifestDocAll/$1';
 $route['manifest']				= 'order/manifest';
+$route['manifest-all']			= 'order/manifestAll';
 
 $route['login'] 				= 'login/index';
 $route['register'] 				= 'login/register';

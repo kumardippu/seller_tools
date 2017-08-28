@@ -22,8 +22,9 @@ class Home extends CI_Controller {
        $today = date('Y-m-d');
 
        $total_rts_count      = $this->order_model->countRTSData();
+
        $total_user_rts_count = $this->order_model->countRTSData($userid);
-       
+
        $total_rts_count_today = $this->order_model->countRTSDataByDate('',$today,$today);
        $total_user_rts_count_today = $this->order_model->countRTSDataByDate($userid,$today,$today);
     

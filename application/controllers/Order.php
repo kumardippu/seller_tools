@@ -238,7 +238,39 @@ class Order extends CI_Controller {
         $data['side_menu'] = 'includes/side_menu';
         $data['main_content'] = 'manifest';
         $this->load->view('includes/template', $data);*/
+        //$this->load->view('manifest_print', $data);
         $this->load->view('manifest_print', $data);
+
+    }
+
+  function manifestDocAll($itemids=''){
+       $userid = $this->session->userdata('userid');
+       
+       $orders = base64_decode(rawurldecode($itemids));
+       //echo "$orders";
+       $order_ar = explode(',',$orders);
+       $order_details = $this->order_model->getManifestData($order_ar);
+        $file_data  = array();
+        if( count($order_details)>0){
+            $data['error']      = FALSE;
+            $data['error_msg']  = ''; 
+        }else{
+            $data['error']      = TRUE;
+            $data['error_msg']  = 'Order no does not exist';    
+        }
+
+       $data['fileData'] = $order_details;
+
+     //  print_r($data['fileData']);exit;
+
+
+        /*$data['header'] = 'includes/header';
+        $data['footer'] = 'includes/footer';
+        $data['side_menu'] = 'includes/side_menu';
+        $data['main_content'] = 'manifest';
+        $this->load->view('includes/template', $data);*/
+        //$this->load->view('manifest_print', $data);
+        $this->load->view('manifest_print_all', $data);
 
     }
 
@@ -258,6 +290,23 @@ class Order extends CI_Controller {
        $data['footer'] = 'includes/footer';
        $data['side_menu'] = 'includes/side_menu';
        $data['main_content'] = 'manifest';
+       /*$data['refrence_no'] = '4555';
+       $data['main_content'] = 'thanks';*/
+       $this->load->view('includes/template', $data);
+    }
+
+    function manifestAll(){
+       $userid = $this->session->userdata('userid');
+       //GetOrders API Call    
+       $manifest_list = $this->order_model->getManfestList($userid);
+
+       //print_r($manifest_list);exit;
+       $data['manifest'] = $manifest_list;
+       /*print_r($data);exit;*/
+       $data['header'] = 'includes/header';
+       $data['footer'] = 'includes/footer';
+       $data['side_menu'] = 'includes/side_menu';
+       $data['main_content'] = 'manifest_all';
        /*$data['refrence_no'] = '4555';
        $data['main_content'] = 'thanks';*/
        $this->load->view('includes/template', $data);

@@ -160,12 +160,17 @@ class User_model extends CI_Model {
             $data = array(
               'user_id' => $rec->id,
               'login_time' => date("Y-m-d H:i:s"),
+              'action' => 'login',
               'raw_data'  => json_encode($_SERVER)
              );
             $this->db->insert('tbl_last_activity',$data);
             return $rec->id;
           }
           //return false;   
+        }
+
+        function activity($data){
+           $this->db->insert('tbl_last_activity',$data);
         }
 
       function get_user_by_id( $id ) {     

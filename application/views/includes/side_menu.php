@@ -43,8 +43,17 @@
                 <div class="menu_section">
                   <h3>Documents</h3>
                     <ul class="nav side-menu">
-                       <li><a href="<?php echo base_url('manifest');?>"><i class="fa fa-print"></i>Carrier Manifest</a></li> 
-                    </ul>
+                      <li>
+                        <a><i class="fa fa-file-o"></i> Manifest Docs <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url('manifest');?>">Normal Carrier Manifest</a></li>
+                        <li><a href="<?php echo base_url('manifest-all');?>">Consolidated Carrier Manifest</a></li>
+                      <!--<li><a href="chartjs2.html">RTS Action</a></li>-->
+                      </ul>
+                  </li>
+                  </ul>
+
+
                   </div>
               </div>
              <!-- <div class="menu_section">

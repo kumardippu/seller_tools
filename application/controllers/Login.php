@@ -158,6 +158,13 @@ class Login extends CI_Controller {
     * @return void
     */		
 	function logout(){
+        $save = array(
+              'user_id' =>  $this->session->userdata('userid'),
+              'login_time' => date("Y-m-d H:i:s"),
+              'action' => 'logout',
+              'raw_data'  => json_encode($_SERVER)
+             );
+        $this->user_model->activity($save);
 		$this->session->sess_destroy();
 		redirect('login');
 	}
