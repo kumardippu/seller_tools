@@ -164,6 +164,7 @@ class Login extends CI_Controller {
               'action' => 'logout',
               'raw_data'  => json_encode($_SERVER)
              );
+        $this->log_model->writeEventLog(json_encode(array('userid'=> $this->session->userdata('userid'),'ip'=>$_SERVER['REMOTE_ADDR'])),'Logout');
         $this->user_model->activity($save);
 		$this->session->sess_destroy();
 		redirect('login');
