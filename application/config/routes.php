@@ -62,6 +62,7 @@ $route['manifest']				= 'order/manifest';
 $route['manifest-all']			= 'order/manifestAll';
 
 $route['login'] 				= 'login/index';
+$route['forget'] 				= 'login/forgetPassword';
 $route['register'] 				= 'login/register';
 $route['logout'] 				= 'login/logout';
 

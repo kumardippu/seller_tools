@@ -1,4 +1,7 @@
 <?php
+/**
+  * Developed By : Dippu Kumar
+**/
 class Home extends CI_Controller {
 	public function __construct(){
         parent::__construct();
@@ -51,4 +54,31 @@ class Home extends CI_Controller {
 
        // $this->load->view('home',$data);
 	}
+
+ function testMail(){
+    echo "string";
+    $this->load->library('email');
+
+    $config['protocol'] = 'sendmail';
+    $config['mailpath'] = '/usr/sbin/sendmail';
+    $config['charset'] = 'iso-8859-1';
+    $config['wordwrap'] = TRUE;
+
+    $this->email->initialize($config);
+
+    $this->email->from('dippu.kumar@lazada.com.my', 'Test Dippu');
+    //$this->email->from('you@example.com', 'Your Name', 'returned_emails@example.com');
+    $to = array('kumardippu@gmail.com','dippu.kumar@lazada.com.my','prashan.selva@lazada.com.my');
+    $this->email->to($to);
+    //$this->email->cc('another@another-example.com');
+    //$this->email->bcc('them@their-example.com');
+    //$this->email->attach('/path/to/photo1.jpg');
+    //$this->email->attach('http://example.com/filename.pdf');
+    $this->email->subject('Email Test');
+    $this->email->message('Testing the email class.');
+
+    $maildata = $this->email->send();
+    print_r($maildata);
+  }
+
 }
